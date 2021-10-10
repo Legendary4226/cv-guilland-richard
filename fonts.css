@@ -1,0 +1,53 @@
+/* -------------------------------------------------- Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+
+/* Thème light par défaut */
+:root.white-theme {
+    --text-color: #2D2F39;
+}
+
+/* Dark Theme */
+:root {
+    --text-color: #FBEFF1;
+}
+
+
+/* -------------------------------------------------- Style généraux */
+h1, h2 {
+    font-family: 'Comfortaa', cursive;
+    color: var(--text-color);
+}
+h1 {
+    font-size: 3em;
+}
+h2 {
+    font-size: 2em;
+}
+
+p, li {
+    font-family: 'Comfortaa', cursive;
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.text-big {
+    font-size: 1.8em;
+}
+
+.text-semi-big {
+    font-size: 1.4em;
+}
+
+.text-small {
+    font-size: 1.15em;
+}
+
+.center {
+    text-align: center;
+}
+
+.text-margin {
+    margin: 0.5em;
+}

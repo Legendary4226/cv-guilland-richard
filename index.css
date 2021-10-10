@@ -1,0 +1,385 @@
+/* -------------------------------------------------- Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* -------------------------------------------------- Couleurs */
+
+/* Dark Theme par défaut */
+:root {
+    --primary-color: #2d3039;
+    --secondary-color: #3f4350;
+    --third-color : #5EB1BF;
+
+    --text-color: #FBEFF1;
+
+    /* Chemins d'images */
+    --image-phone: url("./img/black-theme/phone.png");
+    --image-identity-card: url("./img/black-theme/identity-card.png");
+    --image-fond-style: url("./img/black-theme/fond-style.png");
+    --image-moon: url("./img/black-theme/moon.png");
+
+    /* Filtre */
+    --filter-grayscale: grayscale(50%);
+    --filter-dark-effect : brightness(.8) contrast(1.2);
+}
+
+/* Thème light */
+:root.white-theme {
+    --primary-color: #FFFFFF;
+    --secondary-color:#BCE0F0;
+    --third-color : #079C72;
+
+    --text-color: #2d3039;
+
+    /* Chemins d'images */
+    --image-phone: url("./img/white-theme/phone.png");
+    --image-identity-card: url("./img/white-theme/identity-card.png");
+    --image-fond-style: url("./img/white-theme/fond-style.png");
+    --image-sun: url("./img/white-theme/sun.png");
+
+    /* Filtre */
+    --filter-grayscale: grayscale(20%);
+    --filter-dark-effect : brightness(1) contrast(1);
+}
+
+/* Gérer les transitions de thèmes et mettre le fond de toute la page au cas ou */
+body {
+    background: var(--primary-color);
+
+    /* Transision sur le toggle */
+    transition-timing-function: ease-in;
+    transition-duration: 400ms;
+    transition-property: background-color, background, text-color, border-color, filter;
+}
+
+/* -------------------------------------------------- Conteneur */
+.container {
+    /* Dimensionner le conteneur de la page */
+    width: 100vw;
+    max-width: 100vw;
+    height: 96vh;
+    padding: 2vh 0 2vh 0;
+
+    /* Organiser la grille */
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1.5fr 1fr;
+    
+    /* Un peut d'espace on est trop collé entre cases :) */
+    gap: 1.8rem;
+
+    overflow-x: hidden;
+}
+
+/* -------------------------------------------------- Gérer les cases EN GENERAL */
+.card {
+    background-color: var(--secondary-color);
+    padding: 1rem;
+}
+
+.tall {
+    /* Cases de deux de hauteur par 1 de largeur */
+    grid-row: span 2;
+}
+
+/* Changer les bordures en fonction de la position des éléments*/
+.left-side {
+    border-radius: 0 1rem 1rem 0;
+}
+
+.right-side {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.middle-side {
+    border-radius: 1rem;
+}
+
+.important-title {
+    text-shadow: 0 0 3px var(--text-color);
+}
+
+
+
+
+/* -------------------------------------------------- Gérer les cases INDIVIDUELLEMENT */
+
+/* -------------------- En commun */
+.diplomes, .mini-description, .langues, .competences {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+/* -------------------- Case "Photo" */
+article.photo {
+    /* Placer les éléments en partant de la droite */
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    /* Définir la taille, l'image et la positionner à gauche au centre */
+    background-image: var(--image-fond-style);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position-y: center;
+}
+
+article.photo > div {
+    /* Définir une taille fixe */
+    width: 200px;
+    height: 210px;
+}
+
+article.photo div > div.contain-photo {
+    /* Forme de carré */
+    clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
+    
+    /* Définir l'image, faire quelle couvre en fonction de la taille et la placer au centre */
+    background-image: url("img/photo-opti.jpg");
+    background-size: cover;
+    background-position-y: center;
+    filter: var(--filter-dark-effect);
+    /* Pour centrer l'image, sinon ça me stresse */
+    background-position-x: -15px;
+    background-size: 108%;
+
+    width: 200px;
+    height: 210px;
+
+    border: var(--third-color) 2px solid;
+
+    /* Animer le changement de clip path */
+    transition: clip-path 1s;
+}
+
+article.photo div > div.contain-photo:hover {
+    /* Forme de losange  */
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+article.photo div > div.hidden-text-photo {
+    position: relative;
+    right: 0;
+
+    /* Cacher le texte derrière l'image */
+    transform: translateY(-100%);
+    opacity: 0;
+
+    padding: 10px;
+
+    transition: 0.4s opacity;
+    transition-delay: 0.2s;
+
+    display: flex;
+    justify-content: space-between;
+
+    cursor: default;
+}
+
+article.photo div div.contain-photo:hover + div.hidden-text-photo {
+    opacity: 1;
+}
+
+
+
+/* -------------------- Case Infos Principales */
+article.infos-principales {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+article.infos-principales > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 1em;
+}
+
+article.infos-principales div > hr {
+    /* Cette ligne qui fais que les barres sont responsive, "pixel" */
+    flex-grow: 2;
+
+    /* Si la taille deviens trop petite, la barre ne disparait pas et ressemble à un point */
+    min-width: 3px;
+    height: 3px;
+
+    border-radius: 1rem;
+    border: 2px solid var(--primary-color);
+    background-color: var(--third-color);
+
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+article.infos-principales div > div.back-phone,
+article.infos-principales div > div.back-identity-card {
+    background-position: center;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+}
+
+article.infos-principales div > div.back-phone {
+    background-image: var(--image-phone);
+}
+
+article.infos-principales div > div.back-identity-card {
+    background-image: var(--image-identity-card);
+}
+
+article.infos-principales h1 {
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+    padding-bottom: 0.1rem;
+    
+    border-radius: 0.5rem;
+
+    box-shadow: 0 0 6px var(--third-color);
+}
+
+
+
+
+/* -------------------- Case Experiences */
+article.experiences {
+    /* Element central sans fond */
+    background: transparent;
+
+    /* Mettre en valeur la carte centrale */
+    box-shadow: 0 0 10px var(--text-color);
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+article.experiences section {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 2;
+}
+
+article.experiences section div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+article.experiences hr {
+    margin: 0.5em;
+    margin-top: 2.5em;
+    margin-bottom: 2em;
+}
+
+
+
+
+/* -------------------- Case Langues */
+article.langues > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+/* -------------------- Case Competences */
+
+article.competences ul {
+    width: 100%;
+
+    flex-grow: 2;
+
+    list-style-type: none;
+}
+
+article.competences h2 {
+    margin-top: 0.6em;
+} 
+
+article.competences ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0.6em;
+}
+
+article.competences ul li > p {
+    display: flex;
+    align-items: center;
+}
+
+article.competences ul li p > img {
+    height: 2em;
+
+    margin-right: 1rem;
+
+    /* Appliquer un effet de noir et blanc pour que les couleurs n'aient pas trop d'impact sur le design de la page */
+    filter: var(--filter-grayscale);
+}
+
+
+
+
+/* -------------------- Case Diplomes */
+article.diplomes div {
+    /* Faire prendre l'espace à l'élément */
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    flex-grow: 2;
+}
+
+/* Les éléments p qui sont pas premier, car les premiers p sont des sorte de titres */
+article.diplomes div p:not(:nth-of-type(1)) {
+    align-self: end;
+    justify-self: end;
+}
+
+
+
+
+/* ------------------------------------------------------- Barres de progression */
+progress.progress-bar {
+    background: var(--primary-color);
+
+    border: none;
+    border-radius: 1rem;
+
+    padding: 5px;
+}
+
+progress.progress-bar::-moz-progress-bar {
+    background: var(--third-color);
+
+    border-radius: 1rem;
+}
+
+progress.medium-progress {
+    width: 8vw;
+    height: 0.6vh;
+    min-height: 6px;
+}
+
+progress.wide-progress {
+    width: 18vw;
+    height: 0.6vh;
+    min-height: 6px;
+}
+

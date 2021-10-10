@@ -1,0 +1,221 @@
+/* Animations */
+@keyframes load {
+    0% {
+        visibility: visible;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 0;
+    }
+}
+
+@keyframes loading {
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-left {
+    50% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-right {
+    50% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-top {
+    50% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-bottom {
+    50% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Fais "apparaitre" l'élément du milleu */
+@keyframes spawn {
+    0% {
+        /* Le tourner de 90deg de côté */
+        opacity: 0;
+        transform: rotateY(-90deg);
+    }
+
+    50% {
+        opacity: 0;
+        transform: rotateY(-90deg);
+    }
+
+    100% {
+        /* Le remettre dans sa position initiale */
+        opacity: 1;
+        transform: rotateY(0);
+    }
+}
+
+@keyframes lock-overflow {
+    0% {
+        overflow: hidden;
+    }
+
+    100% {
+        overflow: hidden;
+    }
+}
+
+
+/* -------------------------------------------------------- LOADER */
+/* Element principal */
+div.loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Placer le loader devant la page */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+
+    /* Pas visible par défaut */
+    visibility: hidden;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: linear-gradient(0.45turn, #FF3341, #2d3039,#5EB1BF);
+
+    animation: load 3.5s;
+
+    /* Variables pour animer les enfants */
+    --delay-animation : 300ms;
+    --time-showed: 3.5s;
+}
+
+div.loader > div {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+
+    padding-bottom: 5rem;
+}
+
+
+/* Parametrer les ronds et leur animation */
+div.loader div > div {
+    width: 1rem;
+    height: 1rem;
+
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px white;
+    opacity: 0;
+
+    animation: loading 0.7s;
+    animation-fill-mode: forwards;
+}
+
+/* Parametrer les ronds individuellement */
+div.loader div > div:nth-of-type(2) {
+    animation-delay: calc(var(--delay-animation));
+}
+div.loader div > div:nth-of-type(3) {
+    animation-delay: calc(var(--delay-animation) * 2);;
+}
+div.loader div > div:nth-of-type(4) {
+    animation-delay: calc(var(--delay-animation) * 3);;
+}
+div.loader div > div:nth-of-type(5) {
+    animation-delay: calc(var(--delay-animation) * 4);;
+}
+div.loader div > div:nth-of-type(6) {
+    animation-delay: calc(var(--delay-animation) * 5);;
+}
+div.loader div > div:nth-of-type(7) {
+    animation-delay: calc(var(--delay-animation) * 6);;
+}
+div.loader div > div:nth-of-type(8) {
+    animation-delay: calc(var(--delay-animation) * 7);;
+}
+div.loader div > div:nth-of-type(9) {
+    animation-delay: calc(var(--delay-animation) * 8);;
+}
+
+
+
+
+/* -------------------------------------------------------- ANIMATION ELEMENTS */
+article {
+    --delay-animation: 4s;
+    --real-delay: 300ms;
+}
+.photo {
+    animation: slide-top var(--delay-animation) ease-out;
+}
+.infos-principales {
+    animation: slide-top var(--delay-animation) ease-out;
+    animation-delay: var(--real-delay);
+}
+.competences {
+    animation: slide-right var(--delay-animation) ease-out;
+    animation-delay: calc(var(--real-delay) * 2);
+}
+.langues {
+    animation: slide-right var(--delay-animation) ease-out;
+    animation-delay: calc(var(--real-delay) * 3);
+}
+.mini-description {
+    animation: slide-bottom var(--delay-animation) ease-out;
+    animation-delay: calc(var(--real-delay) * 4);
+}
+.diplomes {
+    animation: slide-left var(--delay-animation) ease-out;
+    animation-delay: calc(var(--real-delay) * 5);
+}
+
+/* Définir le point d'origine de transformation pour l'élément central qui "apparait" */
+.container {
+    transform-origin: center;
+    animation: lock-overflow 5.5s;
+}
+
+article.experiences {
+    animation: spawn var(--delay-animation) ease-out;
+    animation-delay: calc(var(--real-delay) * 6);
+}

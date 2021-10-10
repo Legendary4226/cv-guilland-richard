@@ -1,0 +1,109 @@
+@keyframes switch {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes turn {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes turn-reverse {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+/* Styliser le bouton de switch de theme */
+
+/* Position par défaut */
+article.infos-principales div button.btn-toggle {
+    background: transparent;
+    cursor: pointer;
+
+    /* Permet de placer ::after et ::before en position absolute en fonction de ce conteneur et pas de la page */
+    position: relative;
+
+    width: 90px;
+    height: 90px;
+
+    /* J'aurais toujours pensé que les bordures "dotted" c'est dégueu */
+    border-radius: 50%;
+    border: var(--primary-color) 3px dotted;
+
+    /* Choisir l'emplacemlent du point de pivot */
+    transform-origin: center;
+
+    transition: 0.5s;
+}
+
+article.infos-principales div button.btn-toggle::before,
+article.infos-principales div button.btn-toggle::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+
+    width: 40px;
+    height: 40px;
+
+    background-size: cover;
+
+    transition: 0.5s;
+}
+
+article.infos-principales div button.btn-toggle::before {
+    background-image: url("./img/black-theme/moon.png");
+}
+
+article.infos-principales div button.btn-toggle::after {
+    background-image: url("./img/white-theme/sun.png");
+
+    opacity: 0;
+}
+
+
+/* Quand HOVER */
+article.infos-principales div button.btn-toggle:hover {
+    /* Faire tourner l'entièreté du bouton */
+    animation: turn 10s infinite linear;
+}
+
+article.infos-principales div button.btn-toggle:hover::before,
+article.infos-principales div button.btn-toggle:hover::after {
+    /* Faire tourner seulement ::before et ::after pour donner l'effet qu'ils se déplacent sans tourner */
+    animation: turn-reverse 10s infinite linear;
+    opacity: 1;
+}
+
+
+article.infos-principales div button.btn-toggle:hover::before {
+    /* Par défaut ils sont au milleu, déplacer le soleil / lune pour qu'ils ne soient pas au même endroit */
+    top: -20px;
+}
+article.infos-principales div button.btn-toggle:hover::after {
+    top: calc(10px + 40px + 10px);
+}
+
+/* Quand WHITE MODE */
+/* Ici le :not(:hover) permet de pas cacher la lune quand le bouton a été cliqué */
+:root.white-theme article.infos-principales div button.btn-toggle:not(:hover)::before {
+    opacity: 0;
+}
+:root.white-theme article.infos-principales div button.btn-toggle::after {
+    opacity: 1;
+}
