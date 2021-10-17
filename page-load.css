@@ -179,7 +179,6 @@ div.loader div > div:nth-of-type(9) {
 
 
 
-
 /* -------------------------------------------------------- ANIMATION ELEMENTS */
 article {
     --delay-animation: 4s;
@@ -215,7 +214,29 @@ article {
     animation: lock-overflow 5.5s;
 }
 
-article.experiences {
+.experiences {
     animation: spawn var(--delay-animation) ease-out;
     animation-delay: calc(var(--real-delay) * 6);
+}
+
+
+
+/* Désactiver les animations pour les écrans inférieurs à 1500px */
+@media (max-width: 1500px) {
+    /* Ne pas afficher le loader */
+    div.loader {
+        display: none;
+    }
+
+    /* Ne pas définir l'animation pour tout les éléments qui en avaient une */
+    .photo,
+    .infos-principales,
+    .competences,
+    .langues,
+    .mini-description,
+    .diplomes,
+    .experiences,
+    .container {
+        animation: none;
+    }
 }

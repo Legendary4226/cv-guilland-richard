@@ -55,10 +55,9 @@ body {
 }
 
 /* -------------------------------------------------- Conteneur */
-.container {
+div.container {
     /* Dimensionner le conteneur de la page */
     width: 100vw;
-    max-width: 100vw;
     height: 96vh;
     padding: 2vh 0 2vh 0;
 
@@ -76,7 +75,7 @@ body {
 /* -------------------------------------------------- Gérer les cases EN GENERAL */
 .card {
     background-color: var(--secondary-color);
-    padding: 1rem;
+    padding: 0.7rem;
 }
 
 .tall {
@@ -200,7 +199,7 @@ article.infos-principales > div {
     justify-content: space-between;
     align-items: center;
 
-    margin: 1em;
+    margin-bottom: 1em;
 }
 
 article.infos-principales div > hr {
@@ -250,17 +249,17 @@ article.infos-principales h1 {
 
 /* -------------------- Case Experiences */
 article.experiences {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     /* Element central sans fond */
     background: transparent;
 
     /* Mettre en valeur la carte centrale */
     box-shadow: 0 0 10px var(--text-color);
     border-radius: 1rem;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 article.experiences section {
@@ -290,6 +289,9 @@ article.langues > div {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /* Dimensionner le conteneur à 100% de son parent pour ensuite size les progress bar à 70% de ce conteneur */
+    width: 100%;
 }
 
 
@@ -354,32 +356,86 @@ article.diplomes div p:not(:nth-of-type(1)) {
 
 
 
+/* État intermédiaire */
+@media (min-width: 640px) and (max-width: 1500px) {
+    div.container {
+        /* Re dimensionner le conteneur de la page */
+        width: 96vw;
+        max-width: 96vw;
+        height: 96vh;
+        padding: 2vh 2vw 2vh 2vw;
 
-/* ------------------------------------------------------- Barres de progression */
-progress.progress-bar {
-    background: var(--primary-color);
+        /* Ré organiser la grille */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        
+        /* Changer la taille du gap */
+        gap: 1rem;
+    }
 
-    border: none;
-    border-radius: 1rem;
+    /* Ré ordonner la grille */
+    .photo {
+        order: 1;
+    }
+    .mini-description {
+        order: 2;
+    }
+    .infos-principales {
+        order: 3;
 
-    padding: 5px;
+        grid-column: span 2;
+    }
+    .experiences {
+        order: 4;
+
+        grid-column: span 2;
+    }
+    .competences {
+        order: 5;
+    }
+    .diplomes {
+        order: 6;
+    }
+    
+    .langues {
+        order: 7;
+
+        grid-column: span 2;
+    }
+    
+    
+    /* Changer les bordures en fonction de la position des éléments*/
+    .left-side,
+    .right-side,
+    .middle-side {
+        border-radius: 0.7rem;
+    }
+
+    article.photo {
+        background-size: 40%;
+    }
 }
 
-progress.progress-bar::-moz-progress-bar {
-    background: var(--third-color);
+/* Adaptation téléphones */
+@media (max-width: 640px) {
+    div.container {
+        /* Re dimensionner le conteneur de la page */
+        width: 96vw;
+        height: 96vh;
+        padding: 2vh 2vw 2vh 2vw;
 
-    border-radius: 1rem;
+        /* Ré organiser la grille */
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        
+        /* Changer la taille du gap */
+        gap: 1rem;
+    }
+
+    /* Changer la taille du fond */
+    article.photo {
+        background-size: 50%;
+    }
 }
-
-progress.medium-progress {
-    width: 8vw;
-    height: 0.6vh;
-    min-height: 6px;
-}
-
-progress.wide-progress {
-    width: 18vw;
-    height: 0.6vh;
-    min-height: 6px;
-}
-

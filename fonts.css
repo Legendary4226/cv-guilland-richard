@@ -1,5 +1,4 @@
 /* -------------------------------------------------- Fonts */
-
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 
 
@@ -18,6 +17,10 @@
 h1, h2 {
     font-family: 'Comfortaa', cursive;
     color: var(--text-color);
+
+    /* Centrer tout les titres, même si ils sont déjà centré, quand le texte reviens à la ligne
+    il est pas centré dans son conteneur tout */
+    text-align: center;
 }
 h1 {
     font-size: 3em;
@@ -50,4 +53,34 @@ p, li {
 
 .text-margin {
     margin: 0.5em;
+}
+
+
+
+/* Adaptation téléphones */
+@media (max-width: 640px) {
+    /* Changer les tailles, inadaptée pour si peu d'espace */
+    h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+    .text-big {
+        font-size: 1.3em;
+    }
+    
+    .text-semi-big {
+        font-size: 1.1em;
+    }
+    
+    .text-small {
+        font-size: 1em;
+    }
+
+    /* Appliquer du margin à tout les p car le rendu est pas pareil,
+     avant flexbox gerait bien l'espace en trop, ici il n'y a plus d'espace bonus */
+    p {
+        margin: 0.5em;
+    }
 }

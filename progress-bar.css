@@ -1,0 +1,49 @@
+/* ------------------------------------------------------- Barres de progression */
+progress {
+    /* Désactive l'apparence par défaut sur Chrome, Edge 
+    Ce qui permet de customiser son apparence si j'ai bien compris */
+    -webkit-appearance: none;
+
+    box-sizing: content-box;
+
+    border-radius: 1rem;
+    padding: 4px;
+
+    /* Pour moz */
+    background-color: var(--primary-color);
+    border: none;
+}
+
+progress::-moz-progress-bar {
+    /* Style de la progress bar pour moz */
+    background-color: var(--third-color);
+
+    border-radius: 1rem;
+}
+
+progress::-webkit-progress-bar {
+    /* Style du fond de la progress bar pour webkit */
+    border-radius: 1rem;
+
+    background-color: var(--primary-color);
+
+    /* Il n'y a pas de bordure chez eux mais au cas ou */
+    border: none;
+}
+
+progress::-webkit-progress-value {
+    /* Style de la progress bar pour webkit */
+    background: var(--third-color);
+
+    border-radius: 1rem;
+}
+
+progress.medium-progress {
+    width: 40%;
+    height: 5px;
+}
+
+progress.wide-progress {
+    width: 75%;
+    height: 5px;
+}
