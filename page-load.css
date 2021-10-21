@@ -4,12 +4,11 @@
         visibility: visible;
     }
 
-    75% {
+    80% {
         opacity: 1;
     }
 
     100% {
-        visibility: visible;
         opacity: 0;
     }
 }
@@ -101,7 +100,7 @@
 
 /* -------------------------------------------------------- LOADER */
 /* Element principal */
-div.loader {
+div#loader {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,24 +120,26 @@ div.loader {
 
     background: linear-gradient(0.45turn, #FF3341, #2d3039,#5EB1BF);
 
-    animation: load 3.5s;
+    /* à partir de là, je vais m'amuser à changer les durées des autres animations en fonction de cette valeur */
+    --loader-duration: 2.5s;
 
-    /* Variables pour animer les enfants */
-    --delay-animation : 300ms;
-    --time-showed: 3.5s;
+    animation: load var(--loader-duration);
+
+    /* Variables pour animer les enfants du loader (à pas confondre avec celle plus bas pour les éléments de la grid */
+    --delay-duration-animation: calc((var(--loader-duration) - 50ms) * 0.8 / 6);
 }
 
-div.loader > div {
+div#loader > div {
     display: flex;
     width: 30%;
-    justify-content: space-between;
+    justify-content: space-evenly;
 
     padding-bottom: 5rem;
 }
 
 
 /* Parametrer les ronds et leur animation */
-div.loader div > div {
+div#loader div > div {
     width: 1rem;
     height: 1rem;
 
@@ -147,42 +148,37 @@ div.loader div > div {
     box-shadow: 0 0 10px white;
     opacity: 0;
 
-    animation: loading 0.7s;
+    animation: loading var(--delay-duration-animation);
     animation-fill-mode: forwards;
 }
 
 /* Parametrer les ronds individuellement */
-div.loader div > div:nth-of-type(2) {
-    animation-delay: calc(var(--delay-animation));
+div#loader div:nth-child(1) {
+    animation-delay: calc(var(--delay-duration-animation) * 0);;
 }
-div.loader div > div:nth-of-type(3) {
-    animation-delay: calc(var(--delay-animation) * 2);;
+div#loader div:nth-child(2) {
+    animation-delay: calc(var(--delay-duration-animation) * 1);;
 }
-div.loader div > div:nth-of-type(4) {
-    animation-delay: calc(var(--delay-animation) * 3);;
+div#loader div:nth-child(3) {
+    animation-delay: calc(var(--delay-duration-animation) * 2);;
 }
-div.loader div > div:nth-of-type(5) {
-    animation-delay: calc(var(--delay-animation) * 4);;
+div#loader div:nth-child(4) {
+    animation-delay: calc(var(--delay-duration-animation) * 3);;
 }
-div.loader div > div:nth-of-type(6) {
-    animation-delay: calc(var(--delay-animation) * 5);;
+div#loader div:nth-child(5) {
+    animation-delay: calc(var(--delay-duration-animation) * 4);;
 }
-div.loader div > div:nth-of-type(7) {
-    animation-delay: calc(var(--delay-animation) * 6);;
+div#loader div:nth-child(6) {
+    animation-delay: calc(var(--delay-duration-animation) * 5);;
 }
-div.loader div > div:nth-of-type(8) {
-    animation-delay: calc(var(--delay-animation) * 7);;
-}
-div.loader div > div:nth-of-type(9) {
-    animation-delay: calc(var(--delay-animation) * 8);;
-}
-
 
 
 /* -------------------------------------------------------- ANIMATION ELEMENTS */
 article {
-    --delay-animation: 4s;
-    --real-delay: 300ms;
+    /* Faire durer l'animation 2.5s + 1s secondes car l'animation commence à 50% mais est prête (visuellement) à l'exécution */
+    --delay-animation: calc(2.5s + 1s);
+    /* Ajouter du délais pour que toute les animations ne se fassent pas en même temps ou en même temps si 0 */
+    --real-delay: 200ms;
 }
 .photo {
     animation: slide-top var(--delay-animation) ease-out;
@@ -211,7 +207,7 @@ article {
 /* Définir le point d'origine de transformation pour l'élément central qui "apparait" */
 .container {
     transform-origin: center;
-    animation: lock-overflow 5.5s;
+    animation: lock-overflow calc(2.5s + 1s + 1s);
 }
 
 .experiences {
@@ -224,7 +220,7 @@ article {
 /* Désactiver les animations pour les écrans inférieurs à 1500px */
 @media (max-width: 1500px) {
     /* Ne pas afficher le loader */
-    div.loader {
+    div#loader {
         display: none;
     }
 

@@ -57,7 +57,6 @@ body {
 /* -------------------------------------------------- Conteneur */
 div.container {
     /* Dimensionner le conteneur de la page */
-    width: 100vw;
     height: 96vh;
     padding: 2vh 0 2vh 0;
 
@@ -68,8 +67,6 @@ div.container {
     
     /* Un peut d'espace on est trop collé entre cases :) */
     gap: 1.8rem;
-
-    overflow-x: hidden;
 }
 
 /* -------------------------------------------------- Gérer les cases EN GENERAL */
@@ -356,22 +353,36 @@ article.diplomes div p:not(:nth-of-type(1)) {
 
 
 
-/* État intermédiaire */
-@media (min-width: 640px) and (max-width: 1500px) {
+/* ---------------------------------------------------- MEDIA QUERRIES */
+
+/* Points communs entre la responsive intermédiaire et téléphones */
+@media (max-width: 1500px) {
     div.container {
         /* Re dimensionner le conteneur de la page */
-        width: 96vw;
-        max-width: 96vw;
-        height: 96vh;
-        padding: 2vh 2vw 2vh 2vw;
+        height: auto;
+        padding: 1vw 1vh;
 
         /* Ré organiser la grille */
         display: grid;
-        grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
-        
+
         /* Changer la taille du gap */
         gap: 1rem;
+    }
+
+    /* Changer les bordures en fonction de la position des éléments*/
+    .left-side,
+    .right-side,
+    .middle-side {
+        border-radius: 0.7rem;
+    }
+}
+
+/* État intermédiaire */
+@media (min-width: 640px) and (max-width: 1500px) {
+    div.container {
+        /* Ré organiser la grille en deux colonnes */
+        grid-template-columns: 1fr 1fr;
     }
 
     /* Ré ordonner la grille */
@@ -403,14 +414,6 @@ article.diplomes div p:not(:nth-of-type(1)) {
 
         grid-column: span 2;
     }
-    
-    
-    /* Changer les bordures en fonction de la position des éléments*/
-    .left-side,
-    .right-side,
-    .middle-side {
-        border-radius: 0.7rem;
-    }
 
     article.photo {
         background-size: 40%;
@@ -420,22 +423,25 @@ article.diplomes div p:not(:nth-of-type(1)) {
 /* Adaptation téléphones */
 @media (max-width: 640px) {
     div.container {
-        /* Re dimensionner le conteneur de la page */
-        width: 96vw;
-        height: 96vh;
-        padding: 2vh 2vw 2vh 2vw;
-
-        /* Ré organiser la grille */
-        display: grid;
+        /* Ré organiser la grille en une colonne */
         grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        
-        /* Changer la taille du gap */
-        gap: 1rem;
     }
 
     /* Changer la taille du fond */
     article.photo {
         background-size: 50%;
+    }
+
+    /* Afficher le contenu en colonne */
+    article.experiences section {
+        flex-direction: column-reverse;
+    }
+
+    /* Ajuster les margins */
+    article.experiences h1 {
+        margin-bottom: 1em;
+    }
+    article.experiences hr {
+        margin: 0.8em;
     }
 }
