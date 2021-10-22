@@ -26,7 +26,7 @@ donc pas besoins de mettre 0% { opacity: 0; } */
 /* Translation de 100% de lui mème vers la gauche pour le faire revenir à sa position initiale
 donc donne l'effet qu'il arrive de la gauche */
 @keyframes slide-left {
-    50% {
+    40% {
         transform: translateX(-100%);
         opacity: 0;
     }
@@ -40,7 +40,7 @@ donc donne l'effet qu'il arrive de la gauche */
 /* Translation de 100% de lui mème vers la droite pour le faire revenir à sa position initiale
 donc donne l'effet qu'il arrive de la droite */
 @keyframes slide-right {
-    50% {
+    40% {
         transform: translateX(100%);
         opacity: 0;
     }
@@ -54,7 +54,7 @@ donc donne l'effet qu'il arrive de la droite */
 /* Translation de 100% de lui mème vers le haut pour le faire revenir à sa position initiale
 donc donne l'effet qu'il arrive d'en haut */
 @keyframes slide-top {
-    50% {
+    40% {
         transform: translateY(-100%);
         opacity: 0;
     }
@@ -68,7 +68,7 @@ donc donne l'effet qu'il arrive d'en haut */
 /* Translation de 100% de lui mème vers le bas pour le faire revenir à sa position initiale
 donc donne l'effet qu'il arrive d'en bas */
 @keyframes slide-bottom {
-    50% {
+    40% {
         transform: translateY(100%);
         opacity: 0;
     }
@@ -85,13 +85,12 @@ Quand il se tourne, on a l'impression qu'il grossit comme si il passait de l'ét
 dans le conteneur à un rectangle */
 @keyframes spawn {
     0% {
-        /* Le tourner de 90deg de côté */
         opacity: 0;
         transform: rotateY(90deg);
     }
-
-    50% {
+    40% {
         opacity: 0;
+        /* Le tourner de 90deg de côté */
         transform: rotateY(90deg);
     }
 
@@ -156,7 +155,7 @@ div#loader {
         /* A partir de là, je vais m'amuser à changer les durées des autres animations en fonction de cette valeur */
         --loader-duration: 2.5s;
 
-        animation: load var(--loader-duration);
+        animation: load var(--loader-duration) ease-out;
 
         /* Variables pour animer les enfants du loader (à pas confondre avec celle plus bas pour les éléments de la grid */
         /* Le -50ms permet simplement de l'aisser visuellement le temps de voir que les "points" ont fini de charger */
@@ -222,38 +221,38 @@ div#loader {
     /* Chaques éléments ont des places différentes donc des animations différentes,
     j'utilise leur classe pour comprendre quelle section on déplace */
     section.photo {
-        animation: slide-top var(--delay-animation) ease-out;
+        animation: slide-top var(--delay-animation) cubic-bezier(.21,.12,0,.61);
     }
     section.infos-principales {
-        animation: slide-top var(--delay-animation) ease-out;
+        animation: slide-top var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: var(--real-delay);
     }
     section.competences {
-        animation: slide-right var(--delay-animation) ease-out;
+        animation: slide-right var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: calc(var(--real-delay) * 2);
     }
     section.langues {
-        animation: slide-right var(--delay-animation) ease-out;
+        animation: slide-right var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: calc(var(--real-delay) * 3);
     }
     section.mini-description {
-        animation: slide-bottom var(--delay-animation) ease-out;
+        animation: slide-bottom var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: calc(var(--real-delay) * 4);
     }
     section.diplomes {
-        animation: slide-left var(--delay-animation) ease-out;
+        animation: slide-left var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: calc(var(--real-delay) * 5);
     }
 
     .experiences {
-        animation: spawn var(--delay-animation) ease-out;
+        animation: spawn var(--delay-animation) cubic-bezier(.21,.12,0,.61);
         animation-delay: calc(var(--real-delay) * 6);
     }
 
     /* Définir le point d'origine de transformation pour l'élément central qui "apparait" */
     div.container {
         transform-origin: center;
-        /* Vérouiller l'overflow de la page */
-        animation: lock-overflow calc(2.5s + 1s + 1s);
+        /* Vérouiller l'overflow de la page pendant l'animation */
+        animation: lock-overflow calc(2.5s + 1.5s);
     }
 }

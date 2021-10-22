@@ -7,7 +7,6 @@
 
 
 
-
 /* -------------------------------------------------- Couleurs */
 /* Dark Theme par défaut */
 :root {
@@ -74,7 +73,6 @@ div.container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1.5fr 1fr;
-    
     /* Un peut d'espace, on est trop collé entre cases :) */
     gap: 1.8rem;
 }
@@ -285,7 +283,7 @@ section.experiences {
     aligner les éléments sur l'axe transversal et sur l'axe principal au centre */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 
     /* Element central sans fond */
@@ -296,14 +294,23 @@ section.experiences {
     border-radius: 1rem;
 }
 
-section.experiences section {
+section.experiences h1 {
+    flex-grow: 1;
+
+    margin-top: 0.8rem;
+}
+
+section.experiences article {
+    /* Faire prendre la place à cet élément */
+    flex-grow: 2;
+
     /* Mettre les éléments en ligne,
     faire de l'espace entre ces éléments avec spawe-between */
     display: flex;
     justify-content: space-between;
 }
 
-section.experiences section div {
+section.experiences article div {
     /* Mettre les éléments en colonne,
     faire de l'espace entre ces éléments avec spawe-around*/
     display: flex;
@@ -313,8 +320,6 @@ section.experiences section div {
 section.experiences hr {
     /* Mettre de l'espace autour de la barre de séparation*/
     margin: 0.5em;
-    margin-top: 2.5em;
-    margin-bottom: 2em;
 }
 
 
@@ -480,7 +485,7 @@ section.diplomes div > p:not(:nth-of-type(1)) {
     }
 
     /* Afficher le contenu en colonne, inversée pour l'ordre dans lesquels je veux */
-    section.experiences section {
+    section.experiences article {
         flex-direction: column-reverse;
     }
 
