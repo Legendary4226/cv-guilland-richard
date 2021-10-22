@@ -3,12 +3,14 @@
 <head>
     <!-- Encodage -->
     <meta charset="utf-8">
+
     <!-- Lier le CSS -->
     <link rel="stylesheet" href="index.css" type="text/css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
     <link rel="stylesheet" href="progress-bar.css" type="text/css">
     <link rel="stylesheet" href="switch-theme-btn.css" type="text/css">
     <link rel="stylesheet" href="page-load.css" type="text/css">
+
     <!-- Lier le script JS -->
     <script src="script.js"></script>
 
@@ -18,8 +20,9 @@
     <title>Guilland Richard</title>
 </head>
 <body>
+    <!-- LOADER -->
     <div id="loader">
-        <div>
+        <section>
             <!-- 6 divs qui vont servir de loader -->
             <div></div>
             <div></div>
@@ -27,26 +30,28 @@
             <div></div>
             <div></div>
             <div></div>
-        </div>
+        </section>
         
         <h1>Loading</h1>
     </div>
 
+    <!-- PAGE -->
     <div class="container">
-        <!-- Première ligne-->
-        <article class="card left-side photo">
-            <!-- Le div sert à être de la forme d'un losange, et cache "19 ans" -->
-            <div>
-                <!-- Ce div contient l'image (ça pue d'utiliser la balise img car l'image se cale pas bien, alors que background est un super outils) -->
+        <section class="card left-side photo">
+            <!-- Le div suivant sert à être de la forme d'un losange, et cache "18 ans" -->
+            <article>
+                <!-- Ce div contient l'image (ça pue d'utiliser la balise img car l'image se cale pas bien, alors que background est un super outils)
+                OU alors je sais pas utiliser la balise img correctement de A à Z -->
                 <div class="contain-photo"></div>
+                
                 <div class="hidden-text-photo">
                     <p class="text-big">18</p>
                     <p class="text-big">ans</p>
                 </div>
-            </div>
-        </article>
+            </article>
+        </section>
 
-        <article class="card middle-side infos-principales">
+        <section class="card middle-side infos-principales">
             <div>
                 <h1>Guilland Richard</h1>
                 <hr>
@@ -54,136 +59,183 @@
             </div>
             
             <div>
-                <!-- div contenant une image en background -->
+                <!-- div contenant une image en background
+                RAPPEL : je n'utilise pas img car lors du switch BLACK / WHITE thème je change l'image !
+                J'aurais aussi pu changer le src d'une balise img grâce à JS, mais j'ai fais l'autre choix -->
                 <div class="back-phone"></div>
                 <hr>
                 <h1>07 68 12 42 82</h1>
             </div>
+
             <div>
                 <h1>Permis B</h1>
                 <hr>
-                <!-- div contenant une image en background -->
+                <!-- IDEM que pour div.back-phone -->
                 <div class="back-identity-card"></div>
             </div>
-        </article>
+        </section>
 
-        <article class="card right-side tall competences">
+        <section class="card right-side tall competences">
+
             <h1 class="important-title">Compétences</h1>
+
             <h2>Langages</h2>
+
             <ul class="langages">
                 <li>
                     <p>
                         <img src="img/python-icon.png" alt="Python"> Python
                     </p>
-                    <progress class="medium-progress" value="95" max="100"></progress>
+
+                    <progress class="medium-progress" value="100" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/nodejs-icon.png" alt="NodeJS"> NodeJS
                     </p>
+
                     <progress class="medium-progress" value="60" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/c-icon.webp" alt="C"> C
                     </p>
+
                     <progress class="medium-progress" value="20" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/php-icon.png" alt="PHP"> PHP
                     </p>
+
                     <progress class="medium-progress" value="40" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/html5-icon.webp" alt="HTML 5"> HTML 5
                     </p>
-                    <progress class="medium-progress" value="95" max="100"></progress>
+
+                    <progress class="medium-progress" value="100" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/css3-icon.png" alt="CSS 3"> CSS 3
                     </p>
+
                     <progress class="medium-progress" value="80" max="100"></progress>
                 </li>
             </ul>
+
             <h2>Bases de données</h2>
+
             <ul class="bdd">
                 <li>
                     <p>
                         <img src="img/mysql-icon.png" alt="MySQL"> MySQL
                     </p>
+
                     <progress class="medium-progress" value="80" max="100"></progress>
                 </li>
+
                 <li>
                     <p>
                         <img src="img/mongodb-icon.webp" alt="MongoDB"> MongoDB
                     </p>
+
                     <progress class="medium-progress" value="60" max="100"></progress>
                 </li>
             </ul>
-        </article>
+        </section>
 
-        <article class="card left-side tall diplomes">
+        <section class="card left-side tall diplomes">
             <h1 class="important-title">Diplômes</h1>
+
             <div>
                 <p class="text-big">BUT Informatique</p>
+
                 <p class="text-small">En formation en première année</p>
+
                 <p class="text-small">IUT Lyon 1, la Doua</p>
             </div>
+
             <div>
-                <p  class="text-big">BAC Général et Technologique</p>
+                <p class="text-big">BAC Général et Technologique</p>
+
                 <p class="text-small">Options Mathématiques & NSI</p>
+
                 <p class="text-small">Lycée René Perrin, Ugine</p>
             </div>
-        </article>
+        </section>
 
-        <article class="card center-side experiences">
+        <section class="card center-side experiences">
+
             <h1 class="important-title">Expériences</h1>
+
             <section>
                 <div>
+
                     <h2>2017</h2>
+
                     <p class="center text-semi-big text-margin">Stage en entreprise chez Aptesia</p>
+
                     <p class="center text-semi-big">BeeGest un progiciel de gestion d'entreprises</p>
+
                 </div>
+
                 <hr>
+
                 <div>
                     <h2 class="text-margin">2019</h2>
+
                     <p class="center text-semi-big text-margin">Assemblage d'un PC de bureau</p>
+
                     <p class="center text-semi-big">Pour la pharmacie du St Bernard à Séez</p>
                 </div>
+
                 <hr>
+
                 <div>
                     <h2>2019 - Aujourd'hui</h2>
+
                     <p class="center text-semi-big text-margin">Administrateur de l'association Project Heberg</p>
+
                     <p class="center text-semi-big">Hébergements gratuits sous NodeJS, Python et Java</p>
                 </div>
             </section>
-        </article>
+        </section>
 
-        <article class="card middle-side mini-description">
+        <section class="card middle-side mini-description">
             <h2 class="important-title">Mini description</h2>
+
             <p class="text-semi-big center">Autodidacte, j'ai commencé à apprendre l'informatique à l'âge de 10 ans.</p>
+
             <p class="text-semi-big center">Objectif : avoir un métier dans le domaine qui me passionne.</p>
-        </article>
+        </section>
         
-        <article class="card right-side langues">
+        <section class="card right-side langues">
+
             <h2 class="important-title">Langues</h2>
-            <div>
+
+            <article>
                 <p class="text-margin">Français</p>
+
                 <p class="text-margin">100%</p>
 
-                <!-- Deux div imbriqué (permet de faire une barre de progression) -->
                 <progress class="wide-progress" value="100" max="100"></progress>
-            </div>
-            <div>
+            </article>
+            <article>
                 <p class="text-margin">Anglais</p>
+
                 <p class="text-margin">60%</p>
 
                 <progress class="wide-progress" value="60" max="100"></progress>
-            </div>
-        </article>
+            </article>
+        </section>
         
     </div>
 </body>

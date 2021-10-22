@@ -1,3 +1,6 @@
+/* ----------------------------------------- Créer les animations */
+
+/* Change l'opacité de 0 à 1 */
 @keyframes switch {
     from {
         opacity: 1;
@@ -8,6 +11,7 @@
     }
 }
 
+/* Fais tourné de 0 à 360deg */
 @keyframes turn {
     from {
         transform: rotate(0);
@@ -17,31 +21,24 @@
     }
 }
 
-@keyframes turn-reverse {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(-360deg);
-    }
-}
 
-
-/* Styliser le bouton de switch de theme */
+/* ----------------------------------------- Styliser le bouton de switch de theme */
 
 /* Position par défaut */
-article.infos-principales div button.btn-toggle {
-    background: transparent;
-    cursor: pointer;
-
+section.infos-principales div button.btn-toggle {
     /* Permet de placer ::after et ::before en position absolute
      en fonction de ce conteneur et pas de la page */
     position: relative;
 
     width: 96px;
     height: 96px;
+    /* Permet quand le site est en version téléphone de garder l'élément à 96px,
+    car flexbox me le redimensionnait ! */
     min-width: 96px;
-    min-height: 96px;
+
+    /* Supprimer le fond et mettre le curseur à la petit main quand on peux cliquer dessus */
+    background: transparent;
+    cursor: pointer;
 
     /* J'aurais toujours pensé que les bordures "dotted" c'est dégueu */
     border-radius: 50%;
@@ -49,72 +46,82 @@ article.infos-principales div button.btn-toggle {
 
     margin: 0.5em;
 
-    /* Choisir l'emplacemlent du point de pivot */
+    /* Choisir l'emplacemlent du point de pivot (quand tout le bouton tourne justement */
     transform-origin: center;
 
-    transition: 0.5s;
-
-    /* Faire tourner l'entièreté du bouton */
+    /* Faire tourner l'entièreté du bouton tout le temps */
     animation: turn 10s infinite linear;
-    /* Pauser l'animation quand pas hover */
+    /* Mais mettre en pause l'animation quand le bouton n'est pas hover */
     animation-play-state: paused;
 }
 
-article.infos-principales div button.btn-toggle::before,
-article.infos-principales div button.btn-toggle::after {
+section.infos-principales div button.btn-toggle::before,
+section.infos-principales div button.btn-toggle::after {
+    /* Définir le contenu à rien et display à block, sinon le pseudo élément ne fonctionne pas */
     content: "";
     display: block;
+    /* Placer l'élément au milleu du bouton par défaut */
     position: absolute;
     left: 25px;
 
+    /* Définir la taille de la lune et du soleil */
     width: 40px;
     height: 40px;
 
+    /* Garder les proportions pour remplir l'élément */
     background-size: cover;
 
-    transition: 0.5s;
+    /* Mettre une transition pour que la lune et le soleil ne se "téléportent" pas */
+    transition: 0.5s ease-in-out;
 
-    /* Faire tourner seulement ::before et ::after pour donner l'effet qu'ils se déplacent sans tourner */
-    animation: turn-reverse 10s infinite linear;
+    /* Faire tourner seulement ::before et ::after pour donner l'effet qu'ils se déplacent sans pivoter visuellement */
+    animation: turn 10s infinite linear;
+    /* Donc inverser l'animation */
+    animation-direction: reverse;
+    /* Conserver l'état de l'animation entre plusieurs hover */
     animation-fill-mode: forwards;
-    /* Pauser l'animation quand pas hover */
+    /* Mettre en pause l'animation quand pas hover */
     animation-play-state: paused;
 }
 
-article.infos-principales div button.btn-toggle::before {
+
+/* Définir le placement, l'image et l'état par défaut de la lune et soleil */
+section.infos-principales div button.btn-toggle::before {
     top: 25px;
 
     background-image: url("./img/black-theme/moon.png");
 }
 
-article.infos-principales div button.btn-toggle::after {
+section.infos-principales div button.btn-toggle::after {
     bottom: 25px;
 
     background-image: url("./img/white-theme/sun.png");
 
+    /* Par défaut on est en Black Theme donc le soleil est invisible */
     opacity: 0;
 }
 
 
-/* Quand HOVER */
-article.infos-principales div button.btn-toggle:hover {
-    /* Reprendre l'animation où elle en était */
+/* Quand il y a HOVER */
+section.infos-principales div button.btn-toggle:hover {
+    /* Reprendre l'animation du bouton où elle en était */
     animation-play-state: running;
 }
 
-article.infos-principales div button.btn-toggle:hover::before,
-article.infos-principales div button.btn-toggle:hover::after {
-    /* Reprendre l'animation où elle en était */
+section.infos-principales div button.btn-toggle:hover::before,
+section.infos-principales div button.btn-toggle:hover::after {
+    /* Reprendre l'animation de la lune et soleil où elle en était */
     animation-play-state: running;
+    /* Mettre les deux à l'opacité 1 car on veux tout les deux les voir */
     opacity: 1;
 }
 
 
-article.infos-principales div button.btn-toggle:hover::before {
+section.infos-principales div button.btn-toggle:hover::before {
     /* Par défaut ils sont au milleu, déplacer le soleil / lune pour qu'ils ne soient pas au même endroit */
     top: calc(100% - 20px - 1.5px);
 }
-article.infos-principales div button.btn-toggle:hover::after {
+section.infos-principales div button.btn-toggle:hover::after {
     /* Ne pas set le top,
     et calculer la taille de l'image divisé par 2, et enlever encore la moitier de la bordure d'ou -1.5px */
     bottom: calc(100% - 20px - 1.5px);
@@ -122,9 +129,10 @@ article.infos-principales div button.btn-toggle:hover::after {
 
 /* Quand WHITE MODE */
 /* Ici le :not(:hover) permet de pas cacher la lune quand le bouton a été cliqué */
-:root.white-theme article.infos-principales div button.btn-toggle:not(:hover)::before {
+:root.white-theme section.infos-principales div button.btn-toggle:not(:hover)::before {
     opacity: 0;
 }
-:root.white-theme article.infos-principales div button.btn-toggle::after {
+:root.white-theme section.infos-principales div button.btn-toggle::after {
+    /* Quand le bouton est dans l'état cliqué, la lune disparait, le solei reste */
     opacity: 1;
 }

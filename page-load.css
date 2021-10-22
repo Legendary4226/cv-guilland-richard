@@ -1,4 +1,5 @@
-/* Animations */
+/* ----------------------------------------- Créer les animations */
+/* Afficher le loader, à 80% du temps de l'animation, rapidement faire disparaitre ce dernier */
 @keyframes load {
     0% {
         visibility: visible;
@@ -13,12 +14,17 @@
     }
 }
 
+/* Partir de l'opacité de l'élément, pour la mettre progressivement à 1,
+je n'utilise cette animation que pour des éléments à 0 d'opacité par défaut
+donc pas besoins de mettre 0% { opacity: 0; } */
 @keyframes loading {
     100% {
         opacity: 1;
     }
 }
 
+/* Translation de 100% de lui mème vers la gauche pour le faire revenir à sa position initiale
+donc donne l'effet qu'il arrive de la gauche */
 @keyframes slide-left {
     50% {
         transform: translateX(-100%);
@@ -31,6 +37,8 @@
     }
 }
 
+/* Translation de 100% de lui mème vers la droite pour le faire revenir à sa position initiale
+donc donne l'effet qu'il arrive de la droite */
 @keyframes slide-right {
     50% {
         transform: translateX(100%);
@@ -43,6 +51,8 @@
     }
 }
 
+/* Translation de 100% de lui mème vers le haut pour le faire revenir à sa position initiale
+donc donne l'effet qu'il arrive d'en haut */
 @keyframes slide-top {
     50% {
         transform: translateY(-100%);
@@ -55,6 +65,8 @@
     }
 }
 
+/* Translation de 100% de lui mème vers le bas pour le faire revenir à sa position initiale
+donc donne l'effet qu'il arrive d'en bas */
 @keyframes slide-bottom {
     50% {
         transform: translateY(100%);
@@ -67,17 +79,20 @@
     }
 }
 
-/* Fais "apparaitre" l'élément du milleu */
+/* Note : l'animation se faire par rapport au centre de lui même
+Donc tourne visuellement l'élément de 90deg depuis son centre, donc il est de profil face à la page.
+Quand il se tourne, on a l'impression qu'il grossit comme si il passait de l'état d'un trait centré
+dans le conteneur à un rectangle */
 @keyframes spawn {
     0% {
         /* Le tourner de 90deg de côté */
         opacity: 0;
-        transform: rotateY(-90deg);
+        transform: rotateY(90deg);
     }
 
     50% {
         opacity: 0;
-        transform: rotateY(-90deg);
+        transform: rotateY(90deg);
     }
 
     100% {
@@ -87,6 +102,8 @@
     }
 }
 
+/* Lors de l'animation, les transform: translate(); causent de l'overflow, 
+obligé d'empêcher l'overflow pedant cette phase */
 @keyframes lock-overflow {
     0% {
         overflow: hidden;
@@ -98,141 +115,145 @@
 }
 
 
-/* -------------------------------------------------------- LOADER */
+
+
 /* Element principal */
 div#loader {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    /* Placer le loader devant la page */
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 5;
-
     /* Pas visible par défaut */
     visibility: hidden;
-
-    width: 100vw;
-    height: 100vh;
-
-    background: linear-gradient(0.45turn, #FF3341, #2d3039,#5EB1BF);
-
-    /* à partir de là, je vais m'amuser à changer les durées des autres animations en fonction de cette valeur */
-    --loader-duration: 2.5s;
-
-    animation: load var(--loader-duration);
-
-    /* Variables pour animer les enfants du loader (à pas confondre avec celle plus bas pour les éléments de la grid */
-    --delay-duration-animation: calc((var(--loader-duration) - 50ms) * 0.8 / 6);
-}
-
-div#loader > div {
-    display: flex;
-    width: 30%;
-    justify-content: space-evenly;
-
-    padding-bottom: 5rem;
-}
-
-
-/* Parametrer les ronds et leur animation */
-div#loader div > div {
-    width: 1rem;
-    height: 1rem;
-
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: 0 0 10px white;
-    opacity: 0;
-
-    animation: loading var(--delay-duration-animation);
-    animation-fill-mode: forwards;
-}
-
-/* Parametrer les ronds individuellement */
-div#loader div:nth-child(1) {
-    animation-delay: calc(var(--delay-duration-animation) * 0);;
-}
-div#loader div:nth-child(2) {
-    animation-delay: calc(var(--delay-duration-animation) * 1);;
-}
-div#loader div:nth-child(3) {
-    animation-delay: calc(var(--delay-duration-animation) * 2);;
-}
-div#loader div:nth-child(4) {
-    animation-delay: calc(var(--delay-duration-animation) * 3);;
-}
-div#loader div:nth-child(5) {
-    animation-delay: calc(var(--delay-duration-animation) * 4);;
-}
-div#loader div:nth-child(6) {
-    animation-delay: calc(var(--delay-duration-animation) * 5);;
-}
-
-
-/* -------------------------------------------------------- ANIMATION ELEMENTS */
-article {
-    /* Faire durer l'animation 2.5s + 1s secondes car l'animation commence à 50% mais est prête (visuellement) à l'exécution */
-    --delay-animation: calc(2.5s + 1s);
-    /* Ajouter du délais pour que toute les animations ne se fassent pas en même temps ou en même temps si 0 */
-    --real-delay: 200ms;
-}
-.photo {
-    animation: slide-top var(--delay-animation) ease-out;
-}
-.infos-principales {
-    animation: slide-top var(--delay-animation) ease-out;
-    animation-delay: var(--real-delay);
-}
-.competences {
-    animation: slide-right var(--delay-animation) ease-out;
-    animation-delay: calc(var(--real-delay) * 2);
-}
-.langues {
-    animation: slide-right var(--delay-animation) ease-out;
-    animation-delay: calc(var(--real-delay) * 3);
-}
-.mini-description {
-    animation: slide-bottom var(--delay-animation) ease-out;
-    animation-delay: calc(var(--real-delay) * 4);
-}
-.diplomes {
-    animation: slide-left var(--delay-animation) ease-out;
-    animation-delay: calc(var(--real-delay) * 5);
-}
-
-/* Définir le point d'origine de transformation pour l'élément central qui "apparait" */
-.container {
-    transform-origin: center;
-    animation: lock-overflow calc(2.5s + 1s + 1s);
-}
-
-.experiences {
-    animation: spawn var(--delay-animation) ease-out;
-    animation-delay: calc(var(--real-delay) * 6);
+    display: none;
 }
 
 
 
-/* Désactiver les animations pour les écrans inférieurs à 1500px */
-@media (max-width: 1500px) {
-    /* Ne pas afficher le loader */
+
+/* ------------------------------------- MEDIA QUERRY */
+@media (min-width: 1501px) {
+    /* --------------- LOADER SEULEMENT POUR LA VERSION ORDI */
+
+    /* Element principal */
     div#loader {
-        display: none;
+
+        /* Centrer le contenu */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        /* Placer le loader devant la page */
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5; /* Priorité visuelle */
+
+        /* Fait toute la page */
+        width: 100vw;
+        height: 100vh;
+
+        /* Dégradé tourné de 45deg composé de 3 couleurs */
+        background: linear-gradient(0.45turn, #2d3039, #2d3039,#5EB1BF);
+
+        /* A partir de là, je vais m'amuser à changer les durées des autres animations en fonction de cette valeur */
+        --loader-duration: 2.5s;
+
+        animation: load var(--loader-duration);
+
+        /* Variables pour animer les enfants du loader (à pas confondre avec celle plus bas pour les éléments de la grid */
+        /* Le -50ms permet simplement de l'aisser visuellement le temps de voir que les "points" ont fini de charger */
+        --delay-duration-animation: calc((var(--loader-duration) - 50ms) * 0.8 / 6);
     }
 
-    /* Ne pas définir l'animation pour tout les éléments qui en avaient une */
-    .photo,
-    .infos-principales,
-    .competences,
-    .langues,
-    .mini-description,
-    .diplomes,
-    .experiences,
-    .container {
-        animation: none;
+    div#loader section {
+        display: flex;
+        width: 30%;
+        justify-content: space-evenly;
+
+        padding-bottom: 5rem;
+    }
+
+
+    /* Chaque div est un "point" */
+    div#loader section > div {
+        /* Petite taille */
+        width: 1rem;
+        height: 1rem;
+
+        /* Border radius de 50% car l'élément est un carré, ça transforme le carré en un rond */
+        border-radius: 50%;
+        background-color: white;
+        box-shadow: 0 0 10px white;
+        /* Invisible par défaut */
+        opacity: 0;
+
+        /* Animation de chargement qui conserve son état final (opacité de 1) */
+        animation: loading var(--delay-duration-animation);
+        animation-fill-mode: forwards;
+    }
+
+    /* Parametrer les ronds individuellement
+    Ici j'applique un delay pour décaler le début de l'animation */
+    div#loader section div:nth-child(1) {
+        animation-delay: calc(var(--delay-duration-animation) * 0);;
+    }
+    div#loader section div:nth-child(2) {
+        animation-delay: calc(var(--delay-duration-animation) * 1);;
+    }
+    div#loader section div:nth-child(3) {
+        animation-delay: calc(var(--delay-duration-animation) * 2);;
+    }
+    div#loader section div:nth-child(4) {
+        animation-delay: calc(var(--delay-duration-animation) * 3);;
+    }
+    div#loader section div:nth-child(5) {
+        animation-delay: calc(var(--delay-duration-animation) * 4);;
+    }
+    div#loader section div:nth-child(6) {
+        animation-delay: calc(var(--delay-duration-animation) * 5);;
+    }
+
+
+    /* -------------------------------------------------------- ANIMATION ELEMENTS */
+    section {
+        /* Faire durer l'animation 2.5s + 1s secondes car l'animation commence à 50% mais est prête (visuellement) à l'exécution */
+        --delay-animation: calc(2.5s + 1s);
+        /* Ajouter du délais pour que toute les animations ne se fassent pas en même temps ou en même temps si 0 */
+        --real-delay: 200ms;
+    }
+    /* Chaques éléments ont des places différentes donc des animations différentes,
+    j'utilise leur classe pour comprendre quelle section on déplace */
+    section.photo {
+        animation: slide-top var(--delay-animation) ease-out;
+    }
+    section.infos-principales {
+        animation: slide-top var(--delay-animation) ease-out;
+        animation-delay: var(--real-delay);
+    }
+    section.competences {
+        animation: slide-right var(--delay-animation) ease-out;
+        animation-delay: calc(var(--real-delay) * 2);
+    }
+    section.langues {
+        animation: slide-right var(--delay-animation) ease-out;
+        animation-delay: calc(var(--real-delay) * 3);
+    }
+    section.mini-description {
+        animation: slide-bottom var(--delay-animation) ease-out;
+        animation-delay: calc(var(--real-delay) * 4);
+    }
+    section.diplomes {
+        animation: slide-left var(--delay-animation) ease-out;
+        animation-delay: calc(var(--real-delay) * 5);
+    }
+
+    .experiences {
+        animation: spawn var(--delay-animation) ease-out;
+        animation-delay: calc(var(--real-delay) * 6);
+    }
+
+    /* Définir le point d'origine de transformation pour l'élément central qui "apparait" */
+    div.container {
+        transform-origin: center;
+        /* Vérouiller l'overflow de la page */
+        animation: lock-overflow calc(2.5s + 1s + 1s);
     }
 }

@@ -4,10 +4,14 @@
     padding: 0;
 }
 
-/* -------------------------------------------------- Couleurs */
 
+
+
+
+/* -------------------------------------------------- Couleurs */
 /* Dark Theme par défaut */
 :root {
+    /* Couleurs */
     --primary-color: #2d3039;
     --secondary-color: #3f4350;
     --third-color : #5EB1BF;
@@ -20,13 +24,14 @@
     --image-fond-style: url("./img/black-theme/fond-style.png");
     --image-moon: url("./img/black-theme/moon.png");
 
-    /* Filtre */
+    /* Filtres */
     --filter-grayscale: grayscale(50%);
     --filter-dark-effect : brightness(.8) contrast(1.2);
 }
 
 /* Thème light */
 :root.white-theme {
+    /* Couleurs */
     --primary-color: #FFFFFF;
     --secondary-color:#BCE0F0;
     --third-color : #079C72;
@@ -39,20 +44,25 @@
     --image-fond-style: url("./img/white-theme/fond-style.png");
     --image-sun: url("./img/white-theme/sun.png");
 
-    /* Filtre */
+    /* Filtres */
     --filter-grayscale: grayscale(20%);
     --filter-dark-effect : brightness(1) contrast(1);
 }
 
-/* Gérer les transitions de thèmes et mettre le fond de toute la page au cas ou */
+/* Gérer les transitions de thèmes */
 body {
+    /* Mettre un fond au body au cas ou d'un bug pour rendre le bug moins dégueux,
+    mais là je parle d'un bug pas connu, j'ai essayé le site sur plein de navigateurs */
     background: var(--primary-color);
 
-    /* Transision sur le toggle */
+    /* Transision sur le toggle de thème */
     transition-timing-function: ease-in;
     transition-duration: 400ms;
     transition-property: background-color, background, text-color, border-color, filter;
 }
+
+
+
 
 /* -------------------------------------------------- Conteneur */
 div.container {
@@ -65,12 +75,17 @@ div.container {
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1.5fr 1fr;
     
-    /* Un peut d'espace on est trop collé entre cases :) */
+    /* Un peut d'espace, on est trop collé entre cases :) */
     gap: 1.8rem;
 }
 
+
+
+
+
 /* -------------------------------------------------- Gérer les cases EN GENERAL */
 .card {
+    /* Mettre le fond des sections */
     background-color: var(--secondary-color);
     padding: 0.7rem;
 }
@@ -93,27 +108,22 @@ div.container {
     border-radius: 1rem;
 }
 
-.important-title {
-    text-shadow: 0 0 3px var(--text-color);
-}
-
 
 
 
 /* -------------------------------------------------- Gérer les cases INDIVIDUELLEMENT */
 
 /* -------------------- En commun */
-.diplomes, .mini-description, .langues, .competences {
+.diplomes, .mini-description {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
 }
 
 
 
 /* -------------------- Case "Photo" */
-article.photo {
+section.photo {
     /* Placer les éléments en partant de la droite */
     display: flex;
     flex-direction: row-reverse;
@@ -126,14 +136,14 @@ article.photo {
     background-position-y: center;
 }
 
-article.photo > div {
+section.photo > article {
     /* Définir une taille fixe */
     width: 200px;
     height: 210px;
 }
 
-article.photo div > div.contain-photo {
-    /* Forme de carré */
+section.photo article > div.contain-photo {
+    /* Forme de carré, je l'ai faite à la main */
     clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
     
     /* Définir l'image, faire quelle couvre en fonction de la taille et la placer au centre */
@@ -154,12 +164,22 @@ article.photo div > div.contain-photo {
     transition: clip-path 1s;
 }
 
-article.photo div > div.contain-photo:hover {
+section.photo article > div.contain-photo:hover {
     /* Forme de losange  */
     clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }
 
-article.photo div > div.hidden-text-photo {
+@keyframes show-text {
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+section.photo article > div.hidden-text-photo {
     position: relative;
     right: 0;
 
@@ -167,31 +187,37 @@ article.photo div > div.hidden-text-photo {
     transform: translateY(-100%);
     opacity: 0;
 
-    padding: 10px;
-
-    transition: 0.4s opacity;
-    transition-delay: 0.2s;
+    /* Mettre un peu d'espace pour positionner le texte pas trop aux bord de l'image
+    (purement visuel) */
+    padding: 5px;
 
     display: flex;
     justify-content: space-between;
 
+    /* Petit détail : ne pas afficher le curseur "text" quand on passe la souris sur l'image */
     cursor: default;
 }
 
-article.photo div div.contain-photo:hover + div.hidden-text-photo {
-    opacity: 1;
+section.photo article div.contain-photo:hover + div.hidden-text-photo {
+    /* Faire apparaitre le texte et conserver l'état de l'animation */
+    animation: show-text 1s forwards;
 }
 
 
 
 /* -------------------- Case Infos Principales */
-article.infos-principales {
+section.infos-principales {
+    /* Mettre les éléments en colonnes, 
+    faire de l'espace entre ces éléments avec space-between */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-article.infos-principales > div {
+section.infos-principales > div {
+    /* Mettre les éléments en ligne,
+    faire de l'espace entre ces éléments avec spawe-between,
+    aligner les éléments sur l'axe transversal au centre */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -199,8 +225,9 @@ article.infos-principales > div {
     margin-bottom: 1em;
 }
 
-article.infos-principales div > hr {
-    /* Cette ligne qui fais que les barres sont responsive, "pixel" */
+section.infos-principales div > hr {
+    /* Cette ligne qui fais que les barres sont responsive, c'est "pixel" comme on dit */
+    /* Elles prennent la place qu'elles peuvent */
     flex-grow: 2;
 
     /* Si la taille deviens trop petite, la barre ne disparait pas et ressemble à un point */
@@ -208,6 +235,7 @@ article.infos-principales div > hr {
     height: 3px;
 
     border-radius: 1rem;
+    /* Couleurs de bordure et fond en fonction du thème */
     border: 2px solid var(--primary-color);
     background-color: var(--third-color);
 
@@ -215,29 +243,36 @@ article.infos-principales div > hr {
     margin-right: 1rem;
 }
 
-article.infos-principales div > div.back-phone,
-article.infos-principales div > div.back-identity-card {
+section.infos-principales div > div.back-phone,
+section.infos-principales div > div.back-identity-card {
+    /* Centrer et garder les proportions de l'image tout en remplissant le conteneur */
     background-position: center;
     background-size: cover;
+    /* Définir la taille */
     width: 50px;
     height: 50px;
 }
 
-article.infos-principales div > div.back-phone {
+section.infos-principales div > div.back-phone {
+    /* Image en fonction du thème */
     background-image: var(--image-phone);
 }
 
-article.infos-principales div > div.back-identity-card {
+section.infos-principales div > div.back-identity-card {
+    /* Image en fonction du thème */
     background-image: var(--image-identity-card);
 }
 
-article.infos-principales h1 {
+section.infos-principales h1 {
+    /* Idem, "couleur en fonction du thème", j'arrête de commenter la même chose maintenant */
     background-color: var(--primary-color);
     padding: 0.5rem;
     padding-bottom: 0.1rem;
     
     border-radius: 0.5rem;
 
+    /* Ombre calée derrière juste l'élément sans décalage,
+     qui a un blur de 6px ce qui fait qu'on voit le blur tout autour de l'élément */
     box-shadow: 0 0 6px var(--third-color);
 }
 
@@ -245,7 +280,9 @@ article.infos-principales h1 {
 
 
 /* -------------------- Case Experiences */
-article.experiences {
+section.experiences {
+    /* Mettre les éléments en colonne,
+    aligner les éléments sur l'axe transversal et sur l'axe principal au centre */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -254,25 +291,27 @@ article.experiences {
     /* Element central sans fond */
     background: transparent;
 
-    /* Mettre en valeur la carte centrale */
+    /* Mettre en valeur la carte centrale avec l'ombre */
     box-shadow: 0 0 10px var(--text-color);
     border-radius: 1rem;
 }
 
-article.experiences section {
+section.experiences section {
+    /* Mettre les éléments en ligne,
+    faire de l'espace entre ces éléments avec spawe-between */
     display: flex;
     justify-content: space-between;
-    flex-grow: 2;
 }
 
-article.experiences section div {
+section.experiences section div {
+    /* Mettre les éléments en colonne,
+    faire de l'espace entre ces éléments avec spawe-around*/
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
 }
 
-article.experiences hr {
+section.experiences hr {
+    /* Mettre de l'espace autour de la barre de séparation*/
     margin: 0.5em;
     margin-top: 2.5em;
     margin-bottom: 2em;
@@ -282,48 +321,51 @@ article.experiences hr {
 
 
 /* -------------------- Case Langues */
-article.langues > div {
+section.langues > article {
+    /* Mettre les éléments en colonne,
+    aligner les éléments sur l'axe transversal au centre */
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* Dimensionner le conteneur à 100% de son parent pour ensuite size les progress bar à 70% de ce conteneur */
-    width: 100%;
 }
 
 
 
 
 /* -------------------- Case Competences */
-
-article.competences ul {
-    width: 100%;
+section.competences ul {
 
     flex-grow: 2;
 
     list-style-type: none;
 }
 
-article.competences h2 {
+section.competences h2 {
     margin-top: 0.6em;
 } 
 
-article.competences ul li {
+section.competences ul li {
+    /* Mettre les éléments en ligne,
+    faire de l'espace entre ces éléments avec spawe-between,
+    aligner les éléments sur l'axe transversal au centre */
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 
     margin: 0.6em;
 }
 
-article.competences ul li > p {
+section.competences ul li > p {
+    /* Mettre les éléments en ligne,
+    aligner les éléments sur l'axe transversal au centre */
     display: flex;
     align-items: center;
 }
 
-article.competences ul li p > img {
+section.competences ul li p > img {
     height: 2em;
 
+    /* Simplement créer de l'espace entre les images et le texte */
     margin-right: 1rem;
 
     /* Appliquer un effet de noir et blanc pour que les couleurs n'aient pas trop d'impact sur le design de la page */
@@ -334,10 +376,7 @@ article.competences ul li p > img {
 
 
 /* -------------------- Case Diplomes */
-article.diplomes div {
-    /* Faire prendre l'espace à l'élément */
-    width: 100%;
-
+section.diplomes > div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -346,10 +385,11 @@ article.diplomes div {
 }
 
 /* Les éléments p qui sont pas premier, car les premiers p sont des sorte de titres */
-article.diplomes div p:not(:nth-of-type(1)) {
+section.diplomes div > p:not(:nth-of-type(1)) {
     align-self: end;
     justify-self: end;
 }
+
 
 
 
@@ -360,7 +400,7 @@ article.diplomes div p:not(:nth-of-type(1)) {
     div.container {
         /* Re dimensionner le conteneur de la page */
         height: auto;
-        padding: 1vw 1vh;
+        padding: 3vh 1vw;
 
         /* Ré organiser la grille */
         display: grid;
@@ -395,11 +435,13 @@ article.diplomes div p:not(:nth-of-type(1)) {
     .infos-principales {
         order: 3;
 
+        /* Changement, il prend TOUTE une ligne */
         grid-column: span 2;
     }
     .experiences {
         order: 4;
 
+        /* Changement, il prend TOUTE une ligne */
         grid-column: span 2;
     }
     .competences {
@@ -412,10 +454,12 @@ article.diplomes div p:not(:nth-of-type(1)) {
     .langues {
         order: 7;
 
+        /* Changement, il prend TOUTE une ligne */
         grid-column: span 2;
     }
 
-    article.photo {
+    /* Ajuster la taille, purement esthetique */
+    section.photo {
         background-size: 40%;
     }
 }
@@ -425,23 +469,27 @@ article.diplomes div p:not(:nth-of-type(1)) {
     div.container {
         /* Ré organiser la grille en une colonne */
         grid-template-columns: 1fr;
+
+        /* Sur téléphone, l'animation du bouton créé de l'overflow-y donc pour y remédier ... */
+        overflow-y: hidden;
     }
 
     /* Changer la taille du fond */
-    article.photo {
+    section.photo {
         background-size: 50%;
     }
 
-    /* Afficher le contenu en colonne */
-    article.experiences section {
+    /* Afficher le contenu en colonne, inversée pour l'ordre dans lesquels je veux */
+    section.experiences section {
         flex-direction: column-reverse;
     }
 
     /* Ajuster les margins */
-    article.experiences h1 {
+    section.experiences h1 {
         margin-bottom: 1em;
     }
-    article.experiences hr {
+
+    section.experiences hr {
         margin: 0.8em;
     }
 }

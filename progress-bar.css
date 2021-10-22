@@ -4,6 +4,8 @@ progress {
     Ce qui permet de customiser son apparence si j'ai bien compris */
     -webkit-appearance: none;
 
+    /* Les navigateurs  -moz- et -webkit- n'interprêtent pas pareil, je les met d'accord là dessus */
+    /* Permet que la width/height soit la taille de l'élément en prenant compte du padding appliqué */
     box-sizing: content-box;
 
     border-radius: 1rem;
@@ -27,7 +29,7 @@ progress::-webkit-progress-bar {
 
     background-color: var(--primary-color);
 
-    /* Il n'y a pas de bordure chez eux mais au cas ou */
+    /* Il n'y a pas de bordure chez webkit mais au cas ou */
     border: none;
 }
 
@@ -38,6 +40,7 @@ progress::-webkit-progress-value {
     border-radius: 1rem;
 }
 
+/* Deux tailles personnalisées de progress bar, facilement ajustable, voir en ajouter */
 progress.medium-progress {
     width: 40%;
     height: 5px;
