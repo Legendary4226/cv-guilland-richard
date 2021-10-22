@@ -339,9 +339,6 @@ section.langues > article {
 
 /* -------------------- Case Competences */
 section.competences ul {
-
-    flex-grow: 2;
-
     list-style-type: none;
 }
 
