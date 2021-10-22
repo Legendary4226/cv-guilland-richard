@@ -112,7 +112,7 @@ div.container {
 /* -------------------------------------------------- Gérer les cases INDIVIDUELLEMENT */
 
 /* -------------------- En commun */
-.diplomes, .mini-description {
+.diplomes, .mini-description, .langues {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
